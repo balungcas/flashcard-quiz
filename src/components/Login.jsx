@@ -107,7 +107,7 @@ function Login({
             <div id="login-footer">
                 <p>© {new Date().getFullYear()}, Flashcard Quiz.</p>
                 {/* <span>Made with ❤️ by 
-                    <a target="_blank" rel="noopener noreferrer" onClick={gotoMyPortfolio}> Aitisam Yaseen</a>
+                    <a target="_blank" rel="noopener noreferrer" onClick={gotoMyPortfolio}> Lance Balungcas</a>
                 </span> */}
             </div>
         </>
