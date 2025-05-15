@@ -6,7 +6,7 @@ function Terms({ handleTermsSubmit, handleOutsideClick }) {
         <div id="terms" onClick={handleOutsideClick}>
             <div id="content">
                 <a className="close" onClick={handleTermsSubmit}>X</a>
-                <h2>Terms & Introduction ni Lance Balungcas</h2>
+                <h3>Terms & Introduction ni Lance Balungcas</h3>
                 <>
                     <h3>Introduction</h3>
                     <p>
