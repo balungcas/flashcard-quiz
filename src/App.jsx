@@ -1,9 +1,3 @@
-/*
-    path/root/src/App.jsx
-    Imports:
-    ||
-    \/
-*/
 import { useAppFunctions } from './AppFunctions'
 import Login from './components/Login'
 import Content from './components/Content'
@@ -11,13 +5,14 @@ import Topic from './components/Topic'
 import TOPICS_DATA from "./data/topics"
 import QUESTIONS from './data/questions'
 import Flashcard from './components/Flashcard'
+import PDFUploader from './components/PDFUploader'
+import Analytics from './components/Analytics'
+import QuizSettings from './components/QuizSettings'
 import Loader from './assets/loading.gif'
 import './App.css'
+import './styles/advanced-features.css'
 
-// App function
 function App() {
-
-    // App functions, variables, states and effects. 
     const {
       userNames,
       userName,
@@ -32,6 +27,7 @@ function App() {
       seconds,
       timesUp,
       resultData,
+      quizSettings,
       handleNameSubmit,
       removeUserName,
       handleTermsSubmit,
@@ -41,10 +37,11 @@ function App() {
       handleOutsideClick,
       handleTopicSubmit,
       handleResultData,
+      handleSettingsChange,
+      handlePDFUpload
     } = useAppFunctions();
 
-  // Filter flashcards based on the selected topic
-  const filteredFlashcards = QUESTIONS.filter((flashcard) => flashcard.topic === topic);
+    const filteredFlashcards = QUESTIONS.filter((flashcard) => flashcard.topic === topic);
   
     return (
         <>
@@ -67,7 +64,12 @@ function App() {
                         } 
                           subject={<h2>{topic}</h2>}
                     >
-                        <Flashcard flashcards={filteredFlashcards} timer={timesUp} handleResultData={handleResultData} />
+                        <Flashcard 
+                          flashcards={filteredFlashcards} 
+                          timer={timesUp} 
+                          handleResultData={handleResultData}
+                          settings={quizSettings}
+                        />
                     </Content>
                     ) : filteredFlashcards.length > 0 ? (
                       <Content
@@ -80,7 +82,13 @@ function App() {
                         </>} 
                           subject={<h2>{topic}</h2>}
                     >
-                        <Flashcard flashcards={filteredFlashcards} handleLeaveQuiz={handleLeaveQuiz} handleResultData={handleResultData} />
+                        <QuizSettings onSettingsChange={handleSettingsChange} />
+                        <Flashcard 
+                          flashcards={filteredFlashcards}
+                          handleLeaveQuiz={handleLeaveQuiz}
+                          handleResultData={handleResultData}
+                          settings={quizSettings}
+                        />
                     </Content>
                     ) : (
                       <Content
@@ -89,6 +97,7 @@ function App() {
                         </>} 
                           handleLeaveQuiz={handleLeaveQuiz}
                       >
+                        <PDFUploader onTextExtracted={handlePDFUpload} />
                         <Flashcard flashcards={filteredFlashcards} />
                       </Content>
                     )
@@ -101,6 +110,7 @@ function App() {
                         handleInfoClick={handleInfoClick}
                         handleOutsideClick={handleOutsideClick}
                     >
+                      <Analytics quizAttempts={resultData} />
                       <Topic topics={TOPICS_DATA} onTopicClick={handleTopicSubmit} resultData={resultData} />
                     </Content>
                   )
@@ -126,5 +136,3 @@ function App() {
 }
 
 export default App
-
-
